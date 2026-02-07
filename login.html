@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول</title>
+
+  <style>
+    body {
+      font-family: Tahoma, Arial, sans-serif;
+      background: #f7f4f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #5a3d3d;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .login-form input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .login-form button {
+      padding: 12px;
+      border: none;
+      border-radius: 25px;
+      background-color: #5a3d3d;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .login-form button:hover {
+      background-color: #7a5656;
+      transform: scale(1.03);
+    }
+
+    .message {
+      margin-top: 15px;
+      display: none;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .success {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+
+    .error {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    .register-link {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #3b2c2c;
+    }
+
+    .register-link a {
+      color: #5a3d3d;
+      text-decoration: none;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .login-container {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>تسجيل الدخول</h2>
+
+    <form class="login-form">
+      <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+      <input type="password" id="password" placeholder="كلمة المرور" required>
+      <button type="button" onclick="login()">دخول</button>
+    </form>
+
+    <div id="msg" class="message"></div>
+
+    <p class="register-link">
+      ما عندك حساب؟
+      <a href="register.html">سجل الآن</a>
+    </p>
+  </div>
+
+ <script>
+  function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const msg = document.getElementById("msg");
+
+    const savedEmail = localStorage.getItem("userEmail");
+    const savedPassword = localStorage.getItem("userPassword");
+
+    if (!savedEmail) {
+      msg.textContent = "❌ لازم تسجل حساب أولاً";
+      msg.className = "message error";
+      msg.style.display = "block";
+      return;
+    }
+
+    if (email === savedEmail && password === savedPassword) {
+      msg.textContent = "✅ تم تسجيل الدخول";
+      msg.className = "message success";
+      msg.style.display = "block";
+
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 2000);
+    } else {
+      msg.textContent = "❌ الإيميل أو كلمة المرور غلط";
+      msg.className = "message error";
+      msg.style.display = "block";
+    }
+  }
+</script>
+
+</body>
+</html>

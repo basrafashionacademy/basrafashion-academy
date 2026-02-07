@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل كورس</title>
+
+<style>
+body{
+  font-family:Tahoma,Arial;
+  background:#f7f4f2;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  margin:0;
+}
+.box{
+  background:#fff;
+  padding:30px 40px;
+  border-radius:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  width:400px;
+  text-align:center;
+}
+h2{
+  color:#5a3d3d;
+  margin-bottom:20px;
+}
+input, select, textarea{
+  width:100%;
+  padding:10px;
+  margin-bottom:15px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+button{
+  padding:12px;
+  width:100%;
+  border:none;
+  border-radius:25px;
+  background:#5a3d3d;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+button:hover{background:#7a5656;}
+
+.mode-box{
+  display:none;
+  margin-top:20px;
+}
+.mode-btn{
+  margin-bottom:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>تسجيل الكورس</h2>
+
+  <!-- الفورم -->
+  <form id="registerForm">
+    <input type="text" id="name" placeholder="الاسم الكامل" required>
+    <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+    <input type="tel" id="phone" placeholder="رقم الهاتف" required>
+    <input type="text" id="account" placeholder="Instagram" required>
+    <input type="text" id="address" placeholder="العنوان" required>
+
+   
+
+    <select id="sewingMachine" required>
+      <option value="">هل لديك ماكينة خياطة؟</option>
+      <option>نعم</option>
+      <option>لا</option>
+    </select>
+
+    <input type="text" id="education" placeholder="التحصيل الدراسي" required>
+    <textarea id="knowledge" placeholder="مدى معرفتك في مجال تصميم الأزياء" rows="3" required></textarea>
+
+    <button type="submit">تسجيل الآن</button>
+  </form>
+
+  <!-- اختيار نوع الدراسة حضوري / إلكتروني -->
+  <div class="mode-box" id="modeBox">
+    <h3>اختر نوع الدراسة</h3>
+    <button class="mode-btn" onclick="saveData('حضوري')">حضوري</button>
+    <button class="mode-btn" onclick="saveData('إلكتروني')">إلكتروني</button>
+  </div>
+
+</div>
+
+<script>
+const form = document.getElementById("registerForm");
+const modeBox = document.getElementById("modeBox");
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+  form.style.display = "none";
+  modeBox.style.display = "block";
+});
+
+function saveData(mode){
+  const data = {
+    name: document.getElementById("name").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    phone: document.getElementById("phone").value.trim(),
+    account: document.getElementById("account").value.trim(),
+    address: document.getElementById("address").value.trim(),
+    course: document.getElementById("course").value,
+    registrationType: document.getElementById("registrationType").value,
+    sewingMachine: document.getElementById("sewingMachine").value,
+    education: document.getElementById("education").value.trim(),
+    knowledge: document.getElementById("knowledge").value.trim(),
+    mode: mode
+  };
+
+  let list = JSON.parse(localStorage.getItem("students") || "[]");
+  list.push(data);
+  localStorage.setItem("students", JSON.stringify(list));
+
+  if(mode === "إلكتروني"){
+    window.location.href = "online-register.html"; // صفحة التسجيل الإلكتروني
+  } else {
+    window.location.href = "success.html"; // صفحة النجاح للحضوري
+  }
+}
+</script>
+
+</body>
+</html>

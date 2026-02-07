@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل دخول المدير</title>
+<style>
+body { font-family:Tahoma,Arial; background:#f7f4f2; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }
+.login-container{ background:#fff; padding:30px 40px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.1); width:350px; text-align:center; }
+input{ padding:10px; margin-bottom:15px; width:100%; font-size:16px; border-radius:8px; border:1px solid #ccc; }
+button{ padding:12px; width:100%; font-size:16px; border:none; border-radius:25px; background:#5a3d3d; color:white; cursor:pointer; transition:0.3s; }
+button:hover{ background:#7a5656; transform:scale(1.03); }
+.message{color:red; margin-top:10px;}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+<h2>تسجيل دخول المدير</h2>
+<input type="text" id="adminUser" placeholder="اسم المستخدم" required>
+<input type="password" id="adminPass" placeholder="كلمة المرور" required>
+<button onclick="loginAdmin()">دخول</button>
+<div id="msg" class="message"></div>
+</div>
+
+<script>
+function loginAdmin(){
+  const username = document.getElementById("adminUser").value;
+  const password = document.getElementById("adminPass").value;
+  const msg = document.getElementById("msg");
+
+  const ADMIN_USER = "admin";  // غيره لأي اسم تحبه
+  const ADMIN_PASS = "1234";   // غيره لأي كلمة تحب
+
+  if(username === ADMIN_USER && password === ADMIN_PASS){
+    window.location.href = "admin.html";
+  } else {
+    msg.textContent = "❌ اسم المستخدم أو كلمة المرور خاطئة";
+  }
+}
+</script>
+
+</body>
+</html>

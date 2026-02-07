@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>لوحة المدير</title>
+
+<style>
+body{font-family:Tahoma,Arial;background:#f7f4f2;padding:20px;}
+h2{text-align:center;color:#5a3d3d;}
+table{
+  width:100%;
+  background:#fff;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+th,td{
+  border:1px solid #ccc;
+  padding:10px;
+  text-align:center;
+}
+th{background:#5a3d3d;color:#fff;}
+button.delete{
+  padding:5px 15px;
+  border:none;
+  border-radius:15px;
+  background:#a33;
+  color:white;
+  cursor:pointer;
+}
+button.delete:hover{background:#c44;}
+</style>
+</head>
+
+<body>
+
+<h2>المسجلين بالكورسات</h2>
+
+<table>
+<thead>
+<tr>
+  <th>الاسم</th>
+  <th>الإيميل</th>
+  <th>الهاتف</th>
+  <th>الكورس</th>
+  <th>حذف</th>
+</tr>
+</thead>
+<tbody id="data"></tbody>
+</table>
+
+<script>
+// قراءة المسجلين من localStorage
+let students = JSON.parse(localStorage.getItem("students") || "[]");
+const tbody = document.getElementById("data");
+
+// عرض المسجلين بالجدول
+function renderTable(){
+  tbody.innerHTML = "";
+  students.forEach((s,i)=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${s.name}</td>
+      <td>${s.email}</td>
+      <td>${s.phone}</td>
+      <td>${s.course}</td>
+      <td><button class="delete" onclick="deleteStudent(${i})">حذف</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// حذف مشترك
+function deleteStudent(index){
+  if(confirm("هل تريد حذف هذا المشترك؟")){
+    students.splice(index,1); // إزالة من المصفوفة
+    localStorage.setItem("students", JSON.stringify(students)); // تحديث localStorage
+    renderTable(); // إعادة عرض الجدول
+  }
+}
+
+// عرض أول مرة
+renderTable();
+</script>
+
+</body>
+</html>
